@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>frigo</title>
+</head>
+
+<body>
+	<!-- <div class="bg"></div> -->
+	<h1>frigo</h1>
+	<p>冷蔵庫の中にある食材を最大4個まで入力してください。</p>
+
+	<form id="ingredients-form">
+		<div class="ingredient">
+			<input type="text" id="ingredient-1" placeholder="食材１">
+			<input type="text" id="ingredient-2" placeholder="食材２">
+			<input type="text" id="ingredient-3" placeholder="食材３">
+			<input type="text" id="ingredient-4" placeholder="食材４">
+		</div>
+
+		<div class="button">
+			<button type="submit" id="submit-button">レシピを探す</button>
+			<button id="btn">音声入力</button>
+		</div>
+
+	</form>
+	<div id="results-div">
+
+		<!-- ここにレシピの結果を表示する -->
+	</div>
+
+	<a id="re-btn" href='' style="display: none;">recipe</a>
+	</div>
+
+	<!-- jQueryの読み込み -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- JavaScriptの読み込み -->
+	<script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+<html>
+
+<head>
+	<title>冷蔵庫レシピ</title>
+	<style>
+		/* ページ全体のスタイル */
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 20px;
+		}
+
+		h1 {
+			margin-top: 0;
+		}
+
+		p {
+			margin-top: 10px;
+		}
+
+		/* フォームのスタイル */
+		form {
+			margin-bottom: 20px;
+		}
+
+		input[type="text"] {
+			width: 200px;
+			padding: 5px;
+			margin-right: 10px;
+		}
+
+		#submit-button {
+			padding: 5px 10px;
+		}
+
+		/* 結果表示要素のスタイル */
+		.result {
+			display: inline-block;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			text-align: center;
+		}
+
+		.result img {
+			width: 200px;
+			height: 200px;
+			object-fit: cover;
+			margin-bottom: 10px;
+		}
+
+		/* レスポンシブデザインの対応 */
+		@media (max-width: 600px) {
+			input[type="text"] {
+				width: 100%;
+				margin-right: 0;
+				margin-bottom: 10px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<h1>冷蔵庫レシピ</h1>
+	<p>冷蔵庫の中にある食材を最大５個まで入力してください。</p>
+	<form id="ingredients-form">
+		<input type="text" id="ingredient-1" placeholder="食材１">
+		<input type="text" id="ingredient-2" placeholder="食材２">
+		<input type="text" id="ingredient-3" placeholder="食材３">
+		<input type="text" id="ingredient-4" placeholder="食材４">
+		<input type="text" id="ingredient-5" placeholder="食材５">
+		<button type="submit" id="submit-button">レシピを探す</button>
+	</form>
+	<div id="results-div">
+		<!-- ここにレシピの結果を表示する -->
+	</div>
+	<script>
+		// 入力フォームと結果表示用の要素を取得
+		const form = document.getElementById("ingredients-form");
+		const resultsDiv = document.getElementById("results-div");
+
+		// フォームが送信されたときの処理
+		form.addEventListener("submit", (event) => {
+			// デフォルトの送信動作をキャンセル
+			event.preventDefault();
+
+			// 入力された食材を配列に格納
+			const ingredients = [];
+			for (let i = 1; i <= 5; i++) {
+				const input = document.getElementById(`ingredient-${i}`);
+				if (input.value) {
+					ingredients.push(input.value);
+				}
+			}
+
+			// 食材が空でなければAPIにリクエスト
+			if (ingredients.length > 0) {
+				// APIのURLとパラメーター
+				const url = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426";
+				const params = {
+					applicationId: "1023393024377346596",
+					categoryId: "30", // 楽天レシピカテゴリ一覧APIで確認できるカテゴリID
+					format: "json",
+					formatVersion: "2",
+					elements: "recipeTitle,recipeUrl,foodImageUrl", // 取得したい要素
+				};
+
+				// 食材ごとにパラメーターに追加
+				for (let i = 0; i < ingredients.length; i++) {
+					params[`foodstuffId${i + 1}`] = ingredients[i];
+				}
+
+				// パラメーターをURLに変換
+				const query = new URLSearchParams(params).toString();
+
+				// APIからレスポンスを取得
+				fetch(url + "?" + query)
+					.then((response) => response.json())
+					.then((data) => {
+						// 結果表示用の要素を空にする
+						resultsDiv.innerHTML = "";
+						// レシピが見つかった場合
+						if (data.result) {
+							// レシピの数だけループ
+							for (let recipe of data.result) {
+								// レシピのタイトル、画像、URLを取得
+								const title = recipe.recipeTitle;
+								const image = recipe.foodImageUrl;
+								const url = recipe.recipeUrl;
+								// レシピの要素を作成
+								const recipeDiv = document.createElement("div");
+								recipeDiv.className = "recipe";
+
+								const recipeImg = document.createElement("img");
+								recipeImg.src = image;
+
+								const recipeLink = document.createElement("a");
+								recipeLink.href = url;
+								recipeLink.target = "_blank";
+								recipeLink.textContent = title;
+
+								// レシピの要素を結果表示用の要素に追加
+								recipeDiv.appendChild(recipeImg);
+								recipeDiv.appendChild(recipeLink);
+								resultsDiv.appendChild(recipeDiv);
+							}
+						} else {
+							// レシピが見つからなかった場合
+							resultsDiv.textContent = "レシピが見つかりませんでした。";
+						}
+					})
+					.catch((error) => {
+						// エラーが発生した場合
+						console.error(error);
+						resultsDiv.textContent = "エラーが発生しました。";
+					});
+			}
+		});
+	</script>
+</body>
+
+</html>

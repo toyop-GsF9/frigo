@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>音声認識サンプル</title>
+</head>
+
+<body>
+    <h2>音声認識サンプル</h2>
+    <button id="btn">start</button>
+    <div id="content"></div>
+
+    <script>
+        // カテゴリIDの範囲を指定
+        const categoryIds = {
+            large: [30],
+            middle: [300, 317],
+            small: [1130, 2243],
+        };
+
+        // バッチリクエストのためのパラメータを作成
+        const batchRequests = [];
+        for (const ingredient of ingredients) {
+            for (let categoryId = categoryIds.small[0]; categoryId <= categoryIds.small[1]; categoryId++) {
+                console.log(categoryId); // categoryIdの値を出力
+                const requestUrl = `${url}?applicationId=${appId}&format=json&elements=recipeTitle,recipeUrl,foodImageUrl&categoryType=small&keyword=${encodeURIComponent(ingredient)}&categoryId=${categoryId}`;
+                batchRequests.push(requestUrl);
+            }
+        }
+
+
+
+
+    </script>
+
+    <body>
+        <html>

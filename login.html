@@ -1,0 +1,217 @@
+<html>
+
+<head>
+	<style>
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			width: 80%;
+			max-width: 960px;
+			margin: 0 auto;
+
+
+
+
+		}
+
+		.main {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			min-height: 100vh;
+			z-index: 10;
+
+
+		}
+
+
+		h1 {
+			font-family: "Open Sans", sans-serif;
+			font-weight: bold;
+			font-size: 36px;
+			color: #59287a;
+			margin-top: 40px;
+			z-index: 10;
+		}
+
+		.form {
+			width: 60%;
+			max-width: 400px;
+			margin-top: 20px;
+			z-index: 10;
+		}
+
+		label {
+			font-family: "Open Sans", sans-serif;
+			font-weight: normal;
+			font-size: 16px;
+			color: #1b1e24;
+			display: block;
+			margin-bottom: 5px;
+			z-index: 10;
+		}
+
+		input {
+			width: 100%;
+			height: 40px;
+			border: 1px solid #d9d9d9;
+			border-radius: 5px;
+			padding-left: 10px;
+			font-family: "Open Sans", sans-serif;
+			font-weight: normal;
+			font-size: 16px;
+			color: #1b1e24;
+			z-index: 10;
+		}
+
+		input:focus {
+			outline: none;
+			border-color: #59287a;
+		}
+
+		input::placeholder {
+			color: #d9d9d9;
+		}
+
+		button {
+			width: 100%;
+			height: 40px;
+			border: none;
+			border-radius: 5px;
+			background-color: #59287a;
+			font-family: "Open Sans", sans-serif;
+			font-weight: bold;
+			font-size: 16px;
+			color: white;
+			margin-top: 20px;
+			z-index: 10;
+		}
+
+		button:hover {
+			cursor: pointer;
+		}
+
+		a {
+			font-family: "Open Sans", sans-serif;
+			font-weight: normal;
+			font-size: 14px;
+			color: #2972fa;
+			display: block;
+			text-align: center;
+			margin-top: 10px;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		p {
+			font-family: "Open Sans", sans-serif;
+			font-weight: normal;
+			font-size: 14 px;
+			color: #fb4143;
+			display: block;
+			text-align: center;
+			margin-top: 10 px;
+		}
+
+		.bg {
+			/*位置の設定*/
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			/*背景画像の設定*/
+			background-image: url(./img/ryouri02.jpeg);
+			background-size: cover;
+			background-attachment: scroll;
+			background-attachment: fixed;
+			background-repeat: repeat-y;
+
+			/*透過の設定*/
+			opacity: 0.4;
+			z-index: 1;
+
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bg"></div>
+	<div class="container">
+		<div class="main">
+			<h1>ログイン画面</h1>
+			<form class="form" action="#" method="post" id="loginForm">
+				<label for="email">メールアドレス</label>
+				<input type="email" id="email" name="email" placeholder="example@example.com" required>
+				<label for="password">パスワード</label>
+				<input type="password" id="password" name="password" placeholder="********" required>
+				<a href="index02.html">ログイン</button>
+					<a href="signup.html">新規登録はこちら</a>
+			</form>
+			<p id="messe"></p>
+		</div>
+	</div>
+	<script type="module">
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+		// TODO: Add SDKs for Firebase products that you want to use
+		// https://firebase.google.com/docs/web/setup#available-libraries
+
+		// Your web app's Firebase configuration
+		const firebaseConfig = {
+			apiKey: "AIzaSyArp3gRQopWq9qgxW8tdq2Qa1tjwokW4ew",
+			authDomain: "y-app-c4207.firebaseapp.com",
+			projectId: "y-app-c4207",
+			storageBucket: "y-app-c4207.appspot.com",
+			messagingSenderId: "296288062343",
+			appId: "1:296288062343:web:6dad26676c34587e94a122"
+		};
+
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+	</script>
+	<script>
+
+
+		// Firebase Auth オブジェクトを取得する
+		var auth = firebase.auth();
+
+		// ログインフォームの要素を取得する
+		var emailInput = document.getElementById("email");
+		var passwordInput = document.getElementById("password");
+		var loginForm = document.getElementById("loginForm");
+		var message = document.getElementById("messe");
+
+		// ログインフォームの送信イベントを処理する
+		loginForm.addEventListener("submit", function (e) {
+			// デフォルトの動作をキャンセルする
+			e.preventDefault();
+
+			// 入力されたメールアドレスとパスワードを取得する
+			var email = emailInput.value;
+			var password = passwordInput.value;
+
+			// Firebase Auth を使ってメールアドレスとパスワードでログインする
+			auth.signInWithEmailAndPassword(email, password)
+				.then(function (userCredential) {
+					// ログインに成功したら、次のページに遷移する
+					window.location.href = "index02.html";
+				})
+				.catch(function (error) {
+					// ログインに失敗したら、エラーメッセージを表示する
+					message.textContent = error.message;
+				});
+		});
+	</script>
+
+
+</body>
+
+</html>

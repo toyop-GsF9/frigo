@@ -1,0 +1,125 @@
+/* body {
+
+
+	/* background: linear-gradient(60deg, #c8f4e4, #4e77f2); }*/
+
+
+/* 基本スタイル */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	z-index: 10;
+}
+
+h1 {
+	font-size: 32px;
+	text-align: center;
+	margin: 20px 0;
+	z-index: 100;
+}
+
+p {
+	font-size: 16px;
+	text-align: center;
+	z-index: 10;
+}
+
+.ingredient {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	z-index: 10;
+}
+
+.ingredient input {
+	width: 200px;
+	height: 40px;
+	margin: 10px;
+	z-index: 10;
+}
+
+.button {
+	display: flex;
+	justify-content: center;
+	z-index: 10;
+}
+
+.button button {
+	width: 150px;
+	height: 50px;
+	margin: 10px;
+	z-index: 10;
+}
+
+#results-div {
+	max-width: 800px;
+	margin: 0 auto;
+	text-align: center;
+	z-index: 10;
+}
+
+#results-div img {
+	max-width: 320px;
+	z-index: 10;
+
+}
+
+
+.recipe-class {
+	z-index: 100;
+}
+
+.recipe-link {
+	z-index: 100;
+}
+
+.bg {
+	/*位置の設定*/
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	/*背景画像の設定*/
+	background-image: url(./img/ryouri0.jpeg);
+	background-size: cover;
+	background-attachment: scroll;
+	background-attachment: fixed;
+	background-repeat: repeat-y;
+
+	/*透過の設定*/
+	opacity: 0.2;
+
+}
+
+
+
+
+
+
+/* メディアクエリ */
+@media screen and (max-width: 520px) {
+
+	h1 {
+		font-size: 24px;
+		margin: 10px 0;
+	}
+
+	p {
+		font-size: 14px;
+		margin: 5px 0;
+		padding: 0 10px;
+	}
+
+	.ingredient input {
+		width: calc(50% -20px);
+		margin: 5px;
+	}
+
+	.button button {
+		width: calc(50% -20px);
+		height: 40px;
+	}
+}
