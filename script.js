@@ -42,7 +42,7 @@ $(document).ready(function () {
 
 		ingredients.forEach(ingredient => {
 			let xhr = new XMLHttpRequest();
-			let url = `https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1023393024377346596&categoryId=30&keyword=${encodeURIComponent(ingredient)}`;
+			let url = `https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=&categoryId=30&keyword=${encodeURIComponent(ingredient)}`;
 			xhr.open('GET', url, true);
 			xhr.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
